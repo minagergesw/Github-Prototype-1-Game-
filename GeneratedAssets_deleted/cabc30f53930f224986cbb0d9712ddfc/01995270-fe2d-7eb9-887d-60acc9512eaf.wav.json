@@ -1,0 +1,13 @@
+{
+    "asset": "cabc30f53930f224986cbb0d9712ddfc",
+    "fileName": "01995270-fe2d-7eb9-887d-60acc9512eaf.wav",
+    "prompt": " hammer hit",
+    "negativePrompt": "",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "c7d061242c1b35dbf94ed02742b3e556",
+    "duration": 1.690000057220459,
+    "autoTrim": true,
+    "hasReference": false
+}

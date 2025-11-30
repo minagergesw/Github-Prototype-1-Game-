@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ca29f63fecbb44fb981b20379ab78f, type: 3}
+  m_Name: HammerSo
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
+  weaponID: Hammer1
+  weaponName: Hammer
+  icon: {fileID: 0}
+  prefab: {fileID: 2220452568600656053, guid: ee5d42e94e216a34b9fd30391141dd45, type: 3}
+  price: 100
+  unlockByDefault: 1
+  useGripFromPrefab: 1
+  gripLocalPosition: {x: 0, y: 0, z: 0}
+  gripLocalEuler: {x: 0, y: 0, z: 0}
+  gripLocalScale: {x: 1, y: 1, z: 1}
+  animatorOverride: {fileID: 0}
+  baseDamage: 10
+  fireRate: 1
+  upgradeCategory: {fileID: 11400000, guid: 2b65d1009ca25044c93a8712f42fab7e, type: 2}

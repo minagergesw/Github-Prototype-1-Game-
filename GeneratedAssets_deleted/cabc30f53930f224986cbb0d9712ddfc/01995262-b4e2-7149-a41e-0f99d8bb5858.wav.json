@@ -1,0 +1,13 @@
+{
+    "asset": "cabc30f53930f224986cbb0d9712ddfc",
+    "fileName": "01995262-b4e2-7149-a41e-0f99d8bb5858.wav",
+    "prompt": "generate loud hammer hit on object",
+    "negativePrompt": "",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "4e20b9d580a5ce81d619b0ec84a339a8",
+    "duration": 1.690000057220459,
+    "autoTrim": true,
+    "hasReference": false
+}

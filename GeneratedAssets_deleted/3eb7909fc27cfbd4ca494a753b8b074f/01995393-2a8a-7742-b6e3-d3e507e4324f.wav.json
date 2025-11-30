@@ -1,0 +1,13 @@
+{
+    "asset": "3eb7909fc27cfbd4ca494a753b8b074f",
+    "fileName": "01995393-2a8a-7742-b6e3-d3e507e4324f.wav",
+    "prompt": "explosion of tnt",
+    "negativePrompt": "",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "e7d978f5177c3e545b6c68a45f709102",
+    "duration": 4.519999980926514,
+    "autoTrim": true,
+    "hasReference": false
+}
