@@ -6,21 +6,32 @@ public class DealDamage : MonoBehaviour
 {
 
     public GameObject DamageVFX;
-
-    [SerializeField] private float damage;
+    private WeaponStats weaponStats;
+    // [SerializeField] private float damage;
 
 
     private CinemachineImpulseSource hitShake;
     void Awake()
     {
         hitShake = GetComponent<CinemachineImpulseSource>();
+        weaponStats = GetComponentInParent<WeaponStats>();
+
+
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy")) { }
         HealthSystem enemy = other.GetComponent<HealthSystem>();
-        enemy.TakeDamage(damage);
+        float finalDamage = weaponStats.Damage;
+Debug.Log("Damage : " + finalDamage);
+        if (Random.value < weaponStats.CritChance)
+        {
+            finalDamage *= 2f;
+        }
+Debug.Log("Damage : " + finalDamage);
+
+        enemy.TakeDamage(finalDamage);
         hitShake.GenerateImpulse();
         if (DamageVFX != null)
         {

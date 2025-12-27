@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Attack : MonoBehaviour
 {
@@ -9,8 +10,11 @@ public class Attack : MonoBehaviour
     public InputActionAsset InputActions;
     private InputAction attackAction;
     private Animator animator;
+    private WeaponStats weaponStats;
 
-    [SerializeField] private Collider weaponCollider;
+    [SerializeField] private GameObject weaponHolder;
+    private BoxCollider weaponCollider;
+    private ChargeAttack chargeAttack;
 
 
     private void OnEnable()
@@ -28,6 +32,8 @@ public class Attack : MonoBehaviour
         animator = GetComponent<Animator>();
         attackAction = InputActions.FindAction("Attack");
 
+        chargeAttack = GetComponent<ChargeAttack>();
+
         Debug.Log(attackAction);
 
     }
@@ -41,17 +47,29 @@ public class Attack : MonoBehaviour
     {
         if (attackAction.WasPressedThisFrame())
         {
-    
+
             attack();
-            
+
         }
+
+     
+            if (attackAction.WasPressedThisFrame())
+                chargeAttack.StartCharge();
+
+            if (attackAction.IsPressed())
+                chargeAttack.UpdateCharge();
+
+            if (attackAction.WasReleasedThisFrame())
+                chargeAttack.ReleaseCharge();
+    
     }
 
 
     void attack()
     {
-        
+
         float timeSinceLastAttack = Time.time - lastAttackTime;
+        // comboResetTime = 1f / weaponStats.AttackSpeed;
 
         if (timeSinceLastAttack > comboResetTime)
         {
@@ -65,23 +83,36 @@ public class Attack : MonoBehaviour
         // شغل أنيميشن حسب الخطوة الحالية
         animator.SetInteger("ComboStep", comboStep);
         animator.SetTrigger("Attack");
-        
+
         // بعد آخر ضربة رجّع للخطوة الأولى تاني
         if (comboStep >= 3) // لو عندك 3 ضربات مثلا
         {
             comboStep = 0;
         }
         //  animator.SetTrigger("Attack");
-        
+
     }
     public void EnableWeaponCollider()
     {
+        weaponCollider = weaponHolder.GetComponentInChildren<BoxCollider>();
+        weaponStats = weaponHolder.GetComponentInChildren<WeaponStats>();
+        weaponCollider.size *= weaponStats.Range;
         weaponCollider.enabled = true;
     }
     public void DisableWeaponCollider()
     {
+        weaponCollider = weaponHolder.GetComponentInChildren<BoxCollider>();
         weaponCollider.enabled = false;
-        
 
+
+    }
+    public void NormalAttack()
+    {
+        animator.SetTrigger("Attack");
+    }
+
+    public void ChargedAttack()
+    {
+        animator.SetTrigger("Charge Attack");
     }
 }

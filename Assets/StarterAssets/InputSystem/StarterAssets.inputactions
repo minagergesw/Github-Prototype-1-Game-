@@ -77,6 +77,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Charge Attack",
+                    "type": "Button",
+                    "id": "380b3adf-64a3-46c1-83df-b18a325a50fc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -319,6 +328,28 @@
                     "processors": "",
                     "groups": ";KeyboardMouse;Gamepad",
                     "action": "Dead",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9afe89b7-85e7-4a8a-adec-ff6b1703c422",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad;KeyboardMouse",
+                    "action": "Charge Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b7d3a3a-e73b-402b-89f5-b4cad872bb9c",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Charge Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

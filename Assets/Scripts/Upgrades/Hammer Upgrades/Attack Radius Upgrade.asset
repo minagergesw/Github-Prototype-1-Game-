@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13593aea89c047c4eb72ece23b7b3d35, type: 3}
+  m_Name: Attack Radius Upgrade
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
+  upgradeName: Attack Radius
+  icon: {fileID: 0}
+  level: 0
+  maxLevel: 10
+  upgradeType: 1
+  costList:
+  - resource: {fileID: 11400000, guid: d1e46184123c37947a3db8e36013fcf6, type: 2}
+    baseCost: 150
+    startLevel: 0
+  - resource: {fileID: 11400000, guid: aee2bb5ac8e8edf4383787cafb118521, type: 2}
+    baseCost: 15
+    startLevel: 0
+  costMultiplier: 1.5
+  baseValue: 1
+  valuePerLevel: 0.5

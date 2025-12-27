@@ -49,6 +49,8 @@ public WeaponSO weaponSO;
         //     UpdateUI();
         // }
         PlayerWeaponController.Instance.EquipWeapon(weaponSO);
+
+        
     }
 
     public void BuyCashBonus()

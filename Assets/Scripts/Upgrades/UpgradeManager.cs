@@ -28,7 +28,10 @@ public class UpgradeManager : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     public bool TryUpgrade(UpgradeData upgrade)
@@ -61,6 +64,13 @@ public class UpgradeManager : MonoBehaviour
         UpdateUpgradeUI(upgrade);
         ResourceManager.Instance.RecalculateCapacities();
         Debug.Log($"Upgraded {upgrade.upgradeName} to level {upgrade.level}");
+
+        if (currentWeapon != null)
+        {
+            WeaponStats ws = FindObjectOfType<WeaponStats>();
+            if (ws != null)
+                ws.RecalculateStats();
+        }
         return true;
     }
 
@@ -132,4 +142,27 @@ public class UpgradeManager : MonoBehaviour
             upgradeSlots.Add(ui);
         }
     }
+
+    public int GetUpgradeLevel(string upgradeName)
+    {
+        // General upgrades
+        foreach (var up in generalUpgrades.upgrades)
+        {
+            if (up.upgradeName == upgradeName)
+                return up.level;
+        }
+
+        // Weapon upgrades
+        if (currentWeapon != null && currentWeapon.upgradeCategory != null)
+        {
+            foreach (var up in currentWeapon.upgradeCategory.upgrades)
+            {
+                if (up.upgradeName == upgradeName)
+                    return up.level;
+            }
+        }
+
+        return 0;
+    }
+
 }

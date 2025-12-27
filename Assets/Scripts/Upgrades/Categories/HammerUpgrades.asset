@@ -16,3 +16,5 @@ MonoBehaviour:
   categoryIcon: {fileID: 0}
   upgrades:
   - {fileID: 11400000, guid: 7759e28039c6007448fed03ec8d4a210, type: 2}
+  - {fileID: 11400000, guid: 8e3768ce780434449a78b114d5c2f36f, type: 2}
+  - {fileID: 11400000, guid: f4db713eeeb313940bf652fd49860388, type: 2}
