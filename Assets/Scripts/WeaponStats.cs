@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 public class WeaponStats : MonoBehaviour
 {
 
-    [SerializeField] private BoxCollider weaponCollider;
+    private BoxCollider weaponCollider;
     private Vector3 baseColliderSize;
     private float baseRadius;
 
@@ -24,7 +24,8 @@ public class WeaponStats : MonoBehaviour
     public float AttackSpeed { get; private set; }
     public float Range { get; private set; }
     public float CritChance { get; private set; }
-
+    private float originalDamage;
+    private float originalRange;
     void Start()
     {
         RecalculateStats();
@@ -41,14 +42,32 @@ public class WeaponStats : MonoBehaviour
         CritChance = baseCritChance + crtLv * critPerLevel;
     }
 
-[Header("Charge Attack")]
-public float chargeDamageMultiplier = 2f;
-public float chargeRangeMultiplier = 1.5f;
+    [Header("Charge Attack")]
+    public float chargeDamageMultiplier = 2f;
+    public float chargeRangeMultiplier = 1.5f;
 
-public void ApplyChargeMultiplier(float percent)
-{
-    Damage *= Mathf.Lerp(1f, chargeDamageMultiplier, percent);
-    Range *= Mathf.Lerp(1f, chargeRangeMultiplier, percent);
-}
+
+  public void SaveBaseStats()
+    {
+        originalDamage = Damage;
+        originalRange = Range;
+    }
+
+    public void RestoreBaseStats()
+    {
+        Damage = originalDamage;
+        Range = originalRange;
+    }
+    public void ApplyChargeMultiplier(float percent)
+    {
+
+                SaveBaseStats();
+
+        Damage *= Mathf.Lerp(1f, chargeDamageMultiplier, percent);
+        Range *= Mathf.Lerp(1f, chargeRangeMultiplier, percent);
+        
+        Debug.Log("Released Charging");
+
+    }
 
 }

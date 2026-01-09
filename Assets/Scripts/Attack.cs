@@ -9,6 +9,7 @@ public class Attack : MonoBehaviour
     private float lastAttackTime = 0f;
     public InputActionAsset InputActions;
     private InputAction attackAction;
+    private InputAction chargeAttackAction;
     private Animator animator;
     private WeaponStats weaponStats;
 
@@ -16,6 +17,12 @@ public class Attack : MonoBehaviour
     private BoxCollider weaponCollider;
     private ChargeAttack chargeAttack;
 
+    public WeaponStats GetCurrentWeaponStats()
+    {
+        if (weaponHolder == null) return null;
+
+        return weaponHolder.GetComponentInChildren<WeaponStats>();
+    }
 
     private void OnEnable()
     {
@@ -31,6 +38,7 @@ public class Attack : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         attackAction = InputActions.FindAction("Attack");
+        chargeAttackAction = InputActions.FindAction("Charge Attack");
 
         chargeAttack = GetComponent<ChargeAttack>();
 
@@ -52,20 +60,32 @@ public class Attack : MonoBehaviour
 
         }
 
-     
-            if (attackAction.WasPressedThisFrame())
-                chargeAttack.StartCharge();
 
-            if (attackAction.IsPressed())
-                chargeAttack.UpdateCharge();
+        if (chargeAttackAction.WasPressedThisFrame())
+        {
+            Debug.Log("Begin ...");
+            chargeAttack.StartCharge();
+            chargeAttack.UpdateUI();
+        }
 
-            if (attackAction.WasReleasedThisFrame())
-                chargeAttack.ReleaseCharge();
-    
+        if (chargeAttackAction.IsPressed())
+        {
+            Debug.Log("Charging ...");
+
+            chargeAttack.UpdateCharge();
+            chargeAttack.UpdateUI();
+        }
+        if (chargeAttackAction.WasReleasedThisFrame())
+        {
+            Debug.Log("Finished ...");
+            chargeAttack.ReleaseCharge();
+            chargeAttack.ResetUI();
+
+        }
     }
 
 
-    void attack()
+    public void attack()
     {
 
         float timeSinceLastAttack = Time.time - lastAttackTime;
@@ -103,16 +123,25 @@ public class Attack : MonoBehaviour
     {
         weaponCollider = weaponHolder.GetComponentInChildren<BoxCollider>();
         weaponCollider.enabled = false;
+        EndChargedAttack();
 
 
     }
-    public void NormalAttack()
-    {
-        animator.SetTrigger("Attack");
-    }
+    // public void NormalAttack()
+    // {
+    //     animator.SetTrigger("Attack");
+    // }
 
     public void ChargedAttack()
     {
-        animator.SetTrigger("Charge Attack");
+        animator.SetTrigger("ChargeAttack");
+    }
+    public void EndChargedAttack()
+    {
+        WeaponStats stats = GetCurrentWeaponStats();
+        if (stats != null)
+            stats.RestoreBaseStats();
+
+        Debug.Log("Restored Damage ...");
     }
 }

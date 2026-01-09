@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ChargeAttack : MonoBehaviour
 {
@@ -10,12 +11,15 @@ public class ChargeAttack : MonoBehaviour
     private float chargeTimer;
     private bool isCharging;
 
-    private WeaponStats weaponStats;
     private Attack attack;
+    [Header("UI")]
+    public Image chargeFillImage;
+    public float chargeSpeed = 1f;
+
+
 
     void Awake()
     {
-        weaponStats = GetComponentInChildren<WeaponStats>();
         attack = GetComponent<Attack>();
     }
 
@@ -23,14 +27,16 @@ public class ChargeAttack : MonoBehaviour
     {
         isCharging = true;
         chargeTimer = 0f;
+
     }
 
     public void UpdateCharge()
     {
         if (!isCharging) return;
-
         chargeTimer += Time.deltaTime;
+        Debug.Log("Current Time : " + chargeTimer);
         chargeTimer = Mathf.Clamp(chargeTimer, 0, maxChargeTime);
+        Debug.Log("Current Time : " + chargeTimer);
 
         // هنا هنربط الـ Visual بعد شوية
     }
@@ -38,25 +44,51 @@ public class ChargeAttack : MonoBehaviour
     public void ReleaseCharge()
     {
         isCharging = false;
-
         float chargePercent = chargeTimer / maxChargeTime;
 
         if (chargeTimer >= minChargeToActivate)
         {
+
             PerformChargedAttack(chargePercent);
         }
         else
         {
-            attack.NormalAttack();
+            attack.attack();
         }
+
     }
 
     void PerformChargedAttack(float chargePercent)
     {
+        WeaponStats stats = attack.GetCurrentWeaponStats();
         Debug.Log("Charged Attack: " + chargePercent);
 
         // مثال:
-        weaponStats.ApplyChargeMultiplier(chargePercent);
+        stats.ApplyChargeMultiplier(chargePercent);
         attack.ChargedAttack();
     }
+    void Update()
+    {
+        if (isCharging)
+        {
+            chargeFillImage.fillAmount += Time.deltaTime * chargeSpeed;
+            chargeFillImage.fillAmount = Mathf.Clamp01(chargeFillImage.fillAmount);
+        }
+    }
+    public void UpdateUI()
+    {
+        if (chargeFillImage != null)
+
+        {
+            chargeFillImage.fillAmount = chargeTimer / maxChargeTime;
+            chargeFillImage.color = Color.Lerp(Color.yellow, Color.red, chargeTimer / maxChargeTime);
+        }
+    }
+
+    public void ResetUI()
+    {
+        if (chargeFillImage != null)
+            chargeFillImage.fillAmount = 0f;
+    }
+    
 }
